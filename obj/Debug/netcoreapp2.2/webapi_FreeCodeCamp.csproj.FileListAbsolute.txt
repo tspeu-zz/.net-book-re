@@ -1,0 +1,14 @@
+C:\Users\jbanchero\source\repos\webapi_FreeCodeCamp\bin\Debug\netcoreapp2.2\webapi_FreeCodeCamp.deps.json
+C:\Users\jbanchero\source\repos\webapi_FreeCodeCamp\bin\Debug\netcoreapp2.2\webapi_FreeCodeCamp.runtimeconfig.json
+C:\Users\jbanchero\source\repos\webapi_FreeCodeCamp\bin\Debug\netcoreapp2.2\webapi_FreeCodeCamp.runtimeconfig.dev.json
+C:\Users\jbanchero\source\repos\webapi_FreeCodeCamp\bin\Debug\netcoreapp2.2\webapi_FreeCodeCamp.dll
+C:\Users\jbanchero\source\repos\webapi_FreeCodeCamp\bin\Debug\netcoreapp2.2\webapi_FreeCodeCamp.pdb
+C:\Users\jbanchero\source\repos\webapi_FreeCodeCamp\obj\Debug\netcoreapp2.2\webapi_FreeCodeCamp.csprojAssemblyReference.cache
+C:\Users\jbanchero\source\repos\webapi_FreeCodeCamp\obj\Debug\netcoreapp2.2\webapi_FreeCodeCamp.csproj.CoreCompileInputs.cache
+C:\Users\jbanchero\source\repos\webapi_FreeCodeCamp\obj\Debug\netcoreapp2.2\webapi_FreeCodeCamp.RazorAssemblyInfo.cache
+C:\Users\jbanchero\source\repos\webapi_FreeCodeCamp\obj\Debug\netcoreapp2.2\webapi_FreeCodeCamp.RazorAssemblyInfo.cs
+C:\Users\jbanchero\source\repos\webapi_FreeCodeCamp\obj\Debug\netcoreapp2.2\webapi_FreeCodeCamp.AssemblyInfoInputs.cache
+C:\Users\jbanchero\source\repos\webapi_FreeCodeCamp\obj\Debug\netcoreapp2.2\webapi_FreeCodeCamp.AssemblyInfo.cs
+C:\Users\jbanchero\source\repos\webapi_FreeCodeCamp\obj\Debug\netcoreapp2.2\webapi_FreeCodeCamp.RazorTargetAssemblyInfo.cache
+C:\Users\jbanchero\source\repos\webapi_FreeCodeCamp\obj\Debug\netcoreapp2.2\webapi_FreeCodeCamp.dll
+C:\Users\jbanchero\source\repos\webapi_FreeCodeCamp\obj\Debug\netcoreapp2.2\webapi_FreeCodeCamp.pdb
