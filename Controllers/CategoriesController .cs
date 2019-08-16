@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ namespace webapi_FreeCodeCamp.Controllers
      * to distinguish class fields from local variables. 
      */
     [Route("/api/[controller]")]
+    [EnableCors("AllowOrigin")]
     public class CategoriesController: Controller
     {   
         // variables

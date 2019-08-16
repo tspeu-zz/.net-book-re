@@ -33,6 +33,11 @@ namespace webapi_FreeCodeCamp
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             //add
+            services.AddCors(c =>
+            {
+                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
+            });
+
             services.AddDbContext<AppDbContext>(options => {
                 options.UseInMemoryDatabase("hiperdino-api-in-memory");
             });
@@ -55,8 +60,10 @@ namespace webapi_FreeCodeCamp
                 app.UseHsts();
             }
 
+            app.UseCors(options => options.AllowAnyOrigin());
             app.UseHttpsRedirection();
             app.UseMvc();
+
         }
     }
 }
