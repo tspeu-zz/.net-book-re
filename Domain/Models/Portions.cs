@@ -7,6 +7,6 @@ namespace webapi_FreeCodeCamp.Domain.Models
 {
     public class Portions
     {
-        List<Out> portionsList { get; set; }
+        public List<Out> portionsList { get; set; }
     }
 }

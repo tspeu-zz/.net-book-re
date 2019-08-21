@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using webapi_FreeCodeCamp.Domain.Models;
 
 namespace webapi_FreeCodeCamp.Controllers
 {
@@ -28,9 +29,23 @@ namespace webapi_FreeCodeCamp.Controllers
         }
 
         // POST: api/Salida
+        //[HttpPost]
+        //public void Post([FromBody] string value)
+        //{
+        //}
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<ActionResult<Salida>> PostTodoItem(Entrada entrada)
         {
+            //_context.TodoItems.Add(item);
+            //await 
+            Entrada entra = new Entrada();
+            entra = entrada;
+            Salida sal = new Salida();
+
+            sal.pay = 10.89F;
+            sal.billedShifts = null;
+
+            return sal;
         }
 
         // PUT: api/Salida/5

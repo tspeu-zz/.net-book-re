@@ -9,6 +9,6 @@ namespace webapi_FreeCodeCamp.Domain.Models
     {
         public float pay { get; set; }
 
-        List<BilledShiftsList> billedShifts { get; set; }
+        public List<BilledShiftsList> billedShifts { get; set; }
     }
 }
