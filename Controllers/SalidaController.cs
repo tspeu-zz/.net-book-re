@@ -46,7 +46,8 @@ namespace webapi_FreeCodeCamp.Controllers
             List<Boolean> ListaShiftValidados = new List<Boolean>();
 
             List<Rule> ListaEntradaRule = entrada.rules;
-            
+            Rule ruleEntrada = null;
+
             Salida sal = new Salida();
 
 
@@ -55,7 +56,36 @@ namespace webapi_FreeCodeCamp.Controllers
                 ListaShiftValidados[S.id] = ValidarShiftEntrada(S);
             });
 
+         // "id":1,//"type":"FIXED",//"start":"21:00",//"end":"00:00",//"payRate":10.50
 
+
+            ListaEntradaRule.ForEach(r => {
+                if (r.type == "FIXED")
+                {
+
+                    if (r.id == ListaEntradaShifts[r.id].id)
+                    {
+                        //OJO TRANSFORMAR HORAS
+                        var CantidadhorasTurno = r.end - r.start;
+
+                    }
+                    else {
+                        Console.WriteLine("TODO trow ERROR NO HAY SHIFT  PARA RULE > " + r.id);
+
+                    }
+
+                }
+                else if (r.type == "DURATION")
+                {
+
+                }
+                else {
+                    Console.WriteLine("TODO trow ERROR -> NO HAY RULE TIPO ->" + r.type);
+
+                }
+
+
+            });
 
 
 

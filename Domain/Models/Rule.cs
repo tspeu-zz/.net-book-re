@@ -16,8 +16,8 @@ namespace webapi_FreeCodeCamp.Domain.Models
         public int id { get; set; }
 
         public string type { get; set; }
-        public string start { get; set; }
-        public string end { get; set; }
+        public DateTime start { get; set; }
+        public DateTime end { get; set; }
         public float payRate { get; set; }
 
     }
