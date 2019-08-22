@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using webapi_FreeCodeCamp.Domain.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace webapi_FreeCodeCamp.Controllers
 {

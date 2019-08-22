@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using webapi_FreeCodeCamp.Domain.Models;
 using webapi_FreeCodeCamp.UTILS;
 
@@ -37,60 +38,70 @@ namespace webapi_FreeCodeCamp.Controllers
         //{
         //}
         [HttpPost]
-        public async Task<ActionResult<Salida>> PostSalida(Entrada entrada)
+        //[Produces("application/json")]
+        //public async Task<ActionResult<Salida>> PostSalida(Entrada entrada) 
+        public ActionResult<Salida> PostSalida(Entrada entrada)
         {
             //_context.TodoItems.Add(item);
-            //await 
+            //string result = await Request.Content.ReadAsStringAsync();
+            // await 
+            //var jsonT = JsonConvertJsonConvert.SerializeObject(entrada);
 
-            List<Shift> ListaEntradaShifts = entrada.shifts;
-            List<Boolean> ListaShiftValidados = new List<Boolean>();
+            // List<Shift> ListaEntradaShifts = entrada.shifts;
+            //  List<Boolean> ListaShiftValidados = new List<Boolean>();
 
-            List<Rule> ListaEntradaRule = entrada.rules;
-            Rule ruleEntrada = null;
-
+            //List<Rule> ListaEntradaRule = entrada.rules;
+            // Rule ruleEntrada = null;
+            Entrada entra = new Entrada();
+            entra = entrada;
+            var entradaData = JsonConvert.SerializeObject(entrada);
             Salida sal = new Salida();
-
+            Console.WriteLine("TODO entrada > " + entradaData);
 
             //TODO VALIDAR ENTRADA
-            ListaEntradaShifts.ForEach(S => {
-                ListaShiftValidados[S.id] = ValidarShiftEntrada(S);
-            });
+            //ListaEntradaShifts.ForEach(S => {
+            //    ListaShiftValidados[S.id] = ValidarShiftEntrada(S);
+            //});
 
-         // "id":1,//"type":"FIXED",//"start":"21:00",//"end":"00:00",//"payRate":10.50
+            // "id":1,//"type":"FIXED",//"start":"21:00",//"end":"00:00",//"payRate":10.50
+
+            /*
+                        ListaEntradaRule.ForEach(r => {
+
+                            Console.WriteLine("EMPIEZA  PARA RULE > " + r.id);
+
+                            if (r.type == "FIXED")
+                            {
+
+                                if (r.id == ListaEntradaShifts[r.id].id)
+                                {
+                                    //OJO TRANSFORMAR HORAS
+                                    var CantidadhorasTurno = r.end - r.start;
+                                    var PayRange = r.payRate * CantidadhorasTurno;
+
+                                    //TODO
+                                    calculatedShiftTurns(r, ListaEntradaShifts);
+
+                                }
+                                else {
+                                    Console.WriteLine("TODO trow ERROR NO HAY SHIFT  PARA RULE > " + r.id);
+
+                                }
+
+                            }
+                            else if (r.type == "DURATION")
+                            {
+
+                            }
+                            else {
+                                Console.WriteLine("TODO trow ERROR -> NO HAY RULE TIPO ->" + r.type);
+
+                            }
 
 
-            ListaEntradaRule.ForEach(r => {
-                if (r.type == "FIXED")
-                {
-
-                    if (r.id == ListaEntradaShifts[r.id].id)
-                    {
-                        //OJO TRANSFORMAR HORAS
-                        var CantidadhorasTurno = r.end - r.start;
-
-                    }
-                    else {
-                        Console.WriteLine("TODO trow ERROR NO HAY SHIFT  PARA RULE > " + r.id);
-
-                    }
-
-                }
-                else if (r.type == "DURATION")
-                {
-
-                }
-                else {
-                    Console.WriteLine("TODO trow ERROR -> NO HAY RULE TIPO ->" + r.type);
-
-                }
-
-
-            });
-
-
-
-
-
+                        });
+            */
+            //TODO
             sal.pay = 10.89F;
             sal.billedShifts = null;
 
@@ -101,60 +112,60 @@ namespace webapi_FreeCodeCamp.Controllers
 
 
          /*VALIDAR FECHA SHIFT //VALIDAR SHIFT*/
-        public Boolean ValidarListaShiftEntrada(List<Shift> ListaEntradaShifts) {   
-            // • A shift can’t end before it starts 
-            Shift shiftAntual = null;
-            Boolean empieza = false;
+        //public Boolean ValidarListaShiftEntrada(List<Shift> ListaEntradaShifts) {   
+        //    // • A shift can’t end before it starts 
+        //    Shift shiftAntual = null;
+        //    Boolean empieza = false;
 
-            ListaEntradaShifts.ForEach(s => {
-                shiftAntual = s;
-                if (_validadores.Validarfechas(shiftAntual.start, shiftAntual.end))
-                {
-                    Console.WriteLine("FECHA OK en id: " + shiftAntual.id);
-                    empieza = true;
-                }
-                else
-                {
-                    Console.WriteLine("trow Error  TODO");
-                }
+        //    ListaEntradaShifts.ForEach(s => {
+        //        shiftAntual = s;
+        //        if (_validadores.Validarfechas(shiftAntual.start, shiftAntual.end))
+        //        {
+        //            Console.WriteLine("FECHA OK en id: " + shiftAntual.id);
+        //            empieza = true;
+        //        }
+        //        else
+        //        {
+        //            Console.WriteLine("trow Error  TODO");
+        //        }
 
-            });
+        //    });
 
-            Console.WriteLine("VALIDAD FECHA ES--> " + empieza);
+          //  Console.WriteLine("VALIDAD FECHA ES--> " + empieza);
             // • Shifts can start in one day and end in the following day 
             //TODO
 
             // The shift maximum duration can be assumed to be 24 hours 
             // TODO
-            return empieza;
-        }
+          //  return empieza;
+      //  }
 
 
         //SOLO SHIFT
         /*VALIDAR FECHA SHIFT //VALIDAR SHIFT*/
-        public Boolean ValidarShiftEntrada(Shift shift)
-        {
-            // • A shift can’t end before it starts 
-            Shift shiftAntual = null;
-            Boolean empieza = false;
-                if (_validadores.Validarfechas(shiftAntual.start, shiftAntual.end))
-                {
-                    Console.WriteLine("FECHA OK en id: " + shiftAntual.id);
-                    empieza = true;
-                }
-                else
-                {
-                    Console.WriteLine("trow Error  TODO");
-                }
+        //public Boolean ValidarShiftEntrada(Shift shift)
+        //{
+        //    // • A shift can’t end before it starts 
+        //    Shift shiftAntual = null;
+        //    Boolean empieza = false;
+        //        if (_validadores.Validarfechas(shiftAntual.start, shiftAntual.end))
+        //        {
+        //            Console.WriteLine("FECHA OK en id: " + shiftAntual.id);
+        //            empieza = true;
+        //        }
+        //        else
+        //        {
+        //            Console.WriteLine("trow Error  TODO");
+        //        }
 
-            Console.WriteLine("VALIDAD FECHA ES--> " + empieza);
-            // • Shifts can start in one day and end in the following day 
-            //TODO
+        //    Console.WriteLine("VALIDAD FECHA ES--> " + empieza);
+        //    // • Shifts can start in one day and end in the following day 
+        //    //TODO
 
-            // The shift maximum duration can be assumed to be 24 hours 
-            // TODO
-            return empieza;
-        }
+        //    // The shift maximum duration can be assumed to be 24 hours 
+        //    // TODO
+        //    return empieza;
+        //}
 
         //
         public List<Shift> getShifts(Shift s) {
@@ -179,37 +190,59 @@ namespace webapi_FreeCodeCamp.Controllers
     ],
      */
 
-/* "rules":[
- {
-    "id":1,
-    "type":"FIXED",
-    "start":"21:00",
-    "end":"00:00",
-    "payRate":10.50
- },
- {
-    "id":2,
-    "type":"DURATION",
-    "start":3600,
-    "end":7200,
-    "payRate": 20.23
- },
- {
-    "id":3,
-    "type":"DURATION",
-    "start":7200,
-    "end":10801,
-    "payRate": 30.50
- }
-]
- * 
- */
+        void calculatedShiftTurns(Rule r, List<Shift> ListaEntradaShifts) {
+
+            // var diffStarTurno = r.start - ListaEntradaShifts[r.id].start;
+            var itemShift = ListaEntradaShifts.First(item => item.id == r.id);
+            var startShitf = itemShift.start;
+            var endShift = itemShift.end;
+
+            var startRule = r.start;
+            var endRule = r.end;
+
+            //TODO OJO check RULE fixed/duration
+         //  Console.WriteLine("startShitf" +  startShitf.Hour); 
+          // Console.WriteLine("endShift " + endShift.Hour);
+            // date.Hour;
+            //date.Minute;
+            Console.WriteLine("startRule " + startRule);
+            Console.WriteLine("endRule " + endRule);
+
+
+        }
+
+
+        /* "rules":[
+         {
+            "id":1,
+            "type":"FIXED",
+            "start":"21:00",
+            "end":"00:00",
+            "payRate":10.50
+         },
+         {
+            "id":2,
+            "type":"DURATION",
+            "start":3600,
+            "end":7200,
+            "payRate": 20.23
+         },
+         {
+            "id":3,
+            "type":"DURATION",
+            "start":7200,
+            "end":10801,
+            "payRate": 30.50
+         }
+        ]
+         * 
+         */
 
 
 
 
-   // PUT: api/Salida/5
-   [HttpPut("{id}")]
+        // PUT: api/Salida/5
+        [HttpPut("{id}")]
    public void Put(int id, [FromBody] string value)
    {
    }
