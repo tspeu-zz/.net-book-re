@@ -10,12 +10,12 @@ namespace webapi_FreeCodeCamp.Domain.Models
     public class Entrada
     {
         //[JsonProperty("shifts")]
-        // public Shift[] shifts { get;  }
-        //public List<Shift> shifts { get; set; }        
+        // public Shift[] shifts { get; set; }
+        public List<Shift> shifts { get; set; }
 
-       public Shift shifts { get; set; }
-
-    //[JsonProperty("rules")]
-    //public Rule[] rules { get;  }
+        //public Shift shifts { get; set; }
+        public List<Rule> rules { get; set; }
+        //[JsonProperty("rules")]
+        //public Rule[] rules { get; set; }
 }
 }

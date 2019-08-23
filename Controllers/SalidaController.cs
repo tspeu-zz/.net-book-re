@@ -37,10 +37,11 @@ namespace webapi_FreeCodeCamp.Controllers
         //public void Post([FromBody] string value)
         //{
         //}
-        [HttpPost]
         //[Produces("application/json")]
         //public async Task<ActionResult<Salida>> PostSalida(Entrada entrada) 
-        public ActionResult<Salida> PostSalida(Entrada entrada)
+        [HttpPost]
+        public ActionResult<Salida> PostSalida()
+        //public ActionResult<Salida> PostSalida(Entrada entrada)
         {
             //_context.TodoItems.Add(item);
             //string result = await Request.Content.ReadAsStringAsync();
@@ -52,9 +53,45 @@ namespace webapi_FreeCodeCamp.Controllers
 
             //List<Rule> ListaEntradaRule = entrada.rules;
             // Rule ruleEntrada = null;
+
             Entrada entra = new Entrada();
-            entra = entrada;
-            var entradaData = JsonConvert.SerializeObject(entrada);
+            //entra.shifts
+
+            List<Shift> ListaEntradaShifts = new List<Shift>();
+
+            ListaEntradaShifts.Add(new Shift()
+            {
+                id = 1,
+                start = new DateTime(2019, 04, 28, 20, 30, 00),
+                end = new DateTime(2019,04,29,00,30,00)
+            });
+
+            ListaEntradaShifts.Add(new Shift()
+            {
+                id = 2,
+                start = new DateTime(2019,04,29,22,10,00),
+                end = new DateTime(2019,04,30,01,10,00)
+            });
+
+            entra.shifts = ListaEntradaShifts;
+
+            List<Rule> ListaEntradaRule = new List<Rule>();
+
+            ListaEntradaRule.Add(new Rule()
+                {    id=1, type="FIXED",
+                     start = new DateTime().AddHours(13).AddMinutes(00),
+                     end= new DateTime().AddHours(08).AddMinutes(00),
+                     payRate= 10.50F
+                });
+            entra.rules = ListaEntradaRule;
+
+            //if (entrada.rules == null)
+            //{
+            //    //* return HttpBadRequest();
+            //     Console.WriteLine("TODO entrada > " + entrada);
+            //}
+            // entra = entrada;
+            var entradaData = JsonConvert.SerializeObject(entra);
             Salida sal = new Salida();
             Console.WriteLine("TODO entrada > " + entradaData);
 
