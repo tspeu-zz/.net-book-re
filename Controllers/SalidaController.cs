@@ -102,42 +102,36 @@ namespace webapi_FreeCodeCamp.Controllers
 
             // "id":1,//"type":"FIXED",//"start":"21:00",//"end":"00:00",//"payRate":10.50
 
-            /*
-                        ListaEntradaRule.ForEach(r => {
+            
+                    ListaEntradaRule.ForEach(r => {
 
-                            Console.WriteLine("EMPIEZA  PARA RULE > " + r.id);
+                        Console.WriteLine("EMPIEZA  PARA RULE > " + r.id);
+                        var horaEnd = r.end.Hour;
+                        var horaStart = r.start.Hour;
 
-                            if (r.type == "FIXED")
-                            {
+                        var CantidadhorasTurno = horaEnd - horaStart;
+                        var PayRange = r.payRate * CantidadhorasTurno;
 
-                                if (r.id == ListaEntradaShifts[r.id].id)
-                                {
-                                    //OJO TRANSFORMAR HORAS
-                                    var CantidadhorasTurno = r.end - r.start;
-                                    var PayRange = r.payRate * CantidadhorasTurno;
+                        if (r.type == "FIXED")
+                        {
 
-                                    //TODO
-                                    calculatedShiftTurns(r, ListaEntradaShifts);
+                          var itemShift =  ListaEntradaShifts.Find(s =>  r.id == s.id  );
 
-                                }
-                                else {
-                                    Console.WriteLine("TODO trow ERROR NO HAY SHIFT  PARA RULE > " + r.id);
+                            Console.WriteLine("itemShift --> " + itemShift);
 
-                                }
+                        }
+                        else if (r.type == "DURATION")
+                        {
 
-                            }
-                            else if (r.type == "DURATION")
-                            {
+                        }
+                        else {
+                            Console.WriteLine("TODO trow ERROR -> NO HAY RULE TIPO ->" + r.type);
 
-                            }
-                            else {
-                                Console.WriteLine("TODO trow ERROR -> NO HAY RULE TIPO ->" + r.type);
-
-                            }
+                        }
 
 
-                        });
-            */
+                    });
+            
             //TODO
             sal.pay = 10.89F;
             sal.billedShifts = null;
@@ -145,10 +139,23 @@ namespace webapi_FreeCodeCamp.Controllers
             return sal;
         }
 
+        /*
+        5-5-5-3
+        18-23-4-7
+                                              1-1-1-1
+                                       |20:30--------00:30|
+                                                     1-1-1   
+                                              |22:10-----01:10|
+        ---                |13 -------------------------------------08:00|
+        0 ---------------12-----------------------24---------------------------------12
+        1-24  
+
+        https://codereview.stackexchange.com/questions/49205/algorithm-to-identify-a-shift-and-its-type-based-on-on-and-off-times
+      https://www.c-sharpcorner.com/forums/calculate-total-timebreak-time
+             */
 
 
-
-         /*VALIDAR FECHA SHIFT //VALIDAR SHIFT*/
+        /*VALIDAR FECHA SHIFT //VALIDAR SHIFT*/
         //public Boolean ValidarListaShiftEntrada(List<Shift> ListaEntradaShifts) {   
         //    // • A shift can’t end before it starts 
         //    Shift shiftAntual = null;
@@ -168,14 +175,14 @@ namespace webapi_FreeCodeCamp.Controllers
 
         //    });
 
-          //  Console.WriteLine("VALIDAD FECHA ES--> " + empieza);
-            // • Shifts can start in one day and end in the following day 
-            //TODO
+        //  Console.WriteLine("VALIDAD FECHA ES--> " + empieza);
+        // • Shifts can start in one day and end in the following day 
+        //TODO
 
-            // The shift maximum duration can be assumed to be 24 hours 
-            // TODO
-          //  return empieza;
-      //  }
+        // The shift maximum duration can be assumed to be 24 hours 
+        // TODO
+        //  return empieza;
+        //  }
 
 
         //SOLO SHIFT
