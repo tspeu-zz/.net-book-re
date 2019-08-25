@@ -12,3 +12,17 @@ C:\Users\jbanchero\source\repos\webapi_FreeCodeCamp\obj\Debug\netcoreapp2.2\weba
 C:\Users\jbanchero\source\repos\webapi_FreeCodeCamp\obj\Debug\netcoreapp2.2\webapi_FreeCodeCamp.dll
 C:\Users\jbanchero\source\repos\webapi_FreeCodeCamp\obj\Debug\netcoreapp2.2\webapi_FreeCodeCamp.pdb
 C:\Users\jbanchero\source\repos\webapi_FreeCodeCamp\obj\Debug\netcoreapp2.2\webapi_FreeCodeCamp.csprojAssemblyReference.cache
+C:\Users\jm_bchr\Documents\PROYECTOS\.net-book-re\bin\Debug\netcoreapp2.2\webapi_FreeCodeCamp.deps.json
+C:\Users\jm_bchr\Documents\PROYECTOS\.net-book-re\bin\Debug\netcoreapp2.2\webapi_FreeCodeCamp.runtimeconfig.json
+C:\Users\jm_bchr\Documents\PROYECTOS\.net-book-re\bin\Debug\netcoreapp2.2\webapi_FreeCodeCamp.runtimeconfig.dev.json
+C:\Users\jm_bchr\Documents\PROYECTOS\.net-book-re\bin\Debug\netcoreapp2.2\webapi_FreeCodeCamp.dll
+C:\Users\jm_bchr\Documents\PROYECTOS\.net-book-re\bin\Debug\netcoreapp2.2\webapi_FreeCodeCamp.pdb
+C:\Users\jm_bchr\Documents\PROYECTOS\.net-book-re\obj\Debug\netcoreapp2.2\webapi_FreeCodeCamp.csprojAssemblyReference.cache
+C:\Users\jm_bchr\Documents\PROYECTOS\.net-book-re\obj\Debug\netcoreapp2.2\webapi_FreeCodeCamp.csproj.CoreCompileInputs.cache
+C:\Users\jm_bchr\Documents\PROYECTOS\.net-book-re\obj\Debug\netcoreapp2.2\webapi_FreeCodeCamp.RazorAssemblyInfo.cache
+C:\Users\jm_bchr\Documents\PROYECTOS\.net-book-re\obj\Debug\netcoreapp2.2\webapi_FreeCodeCamp.RazorAssemblyInfo.cs
+C:\Users\jm_bchr\Documents\PROYECTOS\.net-book-re\obj\Debug\netcoreapp2.2\webapi_FreeCodeCamp.AssemblyInfoInputs.cache
+C:\Users\jm_bchr\Documents\PROYECTOS\.net-book-re\obj\Debug\netcoreapp2.2\webapi_FreeCodeCamp.AssemblyInfo.cs
+C:\Users\jm_bchr\Documents\PROYECTOS\.net-book-re\obj\Debug\netcoreapp2.2\webapi_FreeCodeCamp.RazorTargetAssemblyInfo.cache
+C:\Users\jm_bchr\Documents\PROYECTOS\.net-book-re\obj\Debug\netcoreapp2.2\webapi_FreeCodeCamp.dll
+C:\Users\jm_bchr\Documents\PROYECTOS\.net-book-re\obj\Debug\netcoreapp2.2\webapi_FreeCodeCamp.pdb

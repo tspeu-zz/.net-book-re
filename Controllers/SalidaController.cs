@@ -108,6 +108,9 @@ namespace webapi_FreeCodeCamp.Controllers
                         Console.WriteLine("EMPIEZA  PARA RULE > " + r.id);
                         var horaEnd = r.end.Hour;
                         var horaStart = r.start.Hour;
+                        //TimeSpan interval = horaEnd - horaStart;
+
+                        /**/
 
                         var CantidadhorasTurno = horaEnd - horaStart;
                         var PayRange = r.payRate * CantidadhorasTurno;
@@ -118,6 +121,18 @@ namespace webapi_FreeCodeCamp.Controllers
                           var itemShift =  ListaEntradaShifts.Find(s =>  r.id == s.id  );
 
                             Console.WriteLine("itemShift --> " + itemShift);
+
+                            DateTime dateStartR = new DateTime(itemShift.start.Year, itemShift.start.Month, itemShift.start.Day, r.start.Hour, r.start.Minute, 00);
+                            DateTime dataEndR = new DateTime(itemShift.end.Year, itemShift.end.Month, itemShift.end.Day, r.end.Hour, r.end.Minute, 00);
+                            Console.WriteLine("dateStartR --> " + dateStartR);
+                            Console.WriteLine("dataEndR --> " + dataEndR);
+
+                            TimeSpan intervalRUle = dataEndR - dateStartR;
+                            Console.WriteLine("intervalRUle --> " + itemShift);
+                            var PayRangeRULE = r.payRate * intervalRUle.Hours;
+                            Console.WriteLine("PayRangeRULE --> " + PayRangeRULE);
+
+
 
                         }
                         else if (r.type == "DURATION")
