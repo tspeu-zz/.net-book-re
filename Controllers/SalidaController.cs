@@ -84,7 +84,7 @@ namespace webapi_FreeCodeCamp.Controllers
                      payRate= 10.50F
                 });
             entra.rules = ListaEntradaRule;
-
+            //13 H --> 46800 SEG --> 08-->28800  * 3600
             //if (entrada.rules == null)
             //{
             //    //* return HttpBadRequest();
@@ -103,49 +103,66 @@ namespace webapi_FreeCodeCamp.Controllers
             // "id":1,//"type":"FIXED",//"start":"21:00",//"end":"00:00",//"payRate":10.50
 
             
-                    ListaEntradaRule.ForEach(r => {
+            ListaEntradaRule.ForEach(r => {
 
-                        Console.WriteLine("EMPIEZA  PARA RULE > " + r.id);
-                        var horaEnd = r.end.Hour;
-                        var horaStart = r.start.Hour;
-                        //TimeSpan interval = horaEnd - horaStart;
+                Console.WriteLine("EMPIEZA  PARA RULE > " + r.id);
+                var horaEnd = r.end.Hour;
+                var horaStart = r.start.Hour;
+                //TimeSpan interval = horaEnd - horaStart;
+                var addHoraShiftRule = 0;
+                /**/
 
-                        /**/
+                var CantidadhorasTurno = horaEnd - horaStart;
+                var PayRange = r.payRate * CantidadhorasTurno;
 
-                        var CantidadhorasTurno = horaEnd - horaStart;
-                        var PayRange = r.payRate * CantidadhorasTurno;
+                var _24H_SEGUNDOS = 86400;
 
-                        if (r.type == "FIXED")
+                if (r.type == "FIXED") {
+                    var itemShift =  ListaEntradaShifts.Find(s =>  r.id == s.id  );
+
+                    Console.WriteLine("itemShift --> " + itemShift);
+
+                    DateTime dateStartR = new DateTime(itemShift.start.Year, itemShift.start.Month, itemShift.start.Day, r.start.Hour, r.start.Minute, 00);
+                    DateTime dataEndR = new DateTime(itemShift.end.Year, itemShift.end.Month, itemShift.end.Day, r.end.Hour, r.end.Minute, 00);
+                    Console.WriteLine("dateStartR --> " + dateStartR);
+                    Console.WriteLine("dataEndR --> " + dataEndR);
+
+                    TimeSpan intervalRUle = dataEndR - dateStartR;
+                    Console.WriteLine("intervalRUle --> " + itemShift);
+                    var PayRangeRULE = r.payRate * intervalRUle.Hours;
+                    Console.WriteLine("PayRangeRULE --> " + PayRangeRULE);
+
+                    TimeSpan startRULE = TimeSpan.FromHours(dateStartR.Hour);
+                           
+                    //EMPEIZA EL RULE->TURNO
+                    var START_converToSEGUNDOS = dateStartR.Hour * 3600;
+
+                        //24 H --> 86.400 SEG * 3600 seg // 30min ->1800 TimeSpan.FromHours(24).TotalSeconds
+                    //for (var i = dateStartR.Hour ; i <= 24 ; i++ ) {
+     
+                    var shift_START_SEGUNDOS = itemShift.start.Hour * 3600;
+
+                    while (START_converToSEGUNDOS <= _24H_SEGUNDOS) {
+
+                        if (shift_START_SEGUNDOS < START_converToSEGUNDOS )
                         {
-
-                          var itemShift =  ListaEntradaShifts.Find(s =>  r.id == s.id  );
-
-                            Console.WriteLine("itemShift --> " + itemShift);
-
-                            DateTime dateStartR = new DateTime(itemShift.start.Year, itemShift.start.Month, itemShift.start.Day, r.start.Hour, r.start.Minute, 00);
-                            DateTime dataEndR = new DateTime(itemShift.end.Year, itemShift.end.Month, itemShift.end.Day, r.end.Hour, r.end.Minute, 00);
-                            Console.WriteLine("dateStartR --> " + dateStartR);
-                            Console.WriteLine("dataEndR --> " + dataEndR);
-
-                            TimeSpan intervalRUle = dataEndR - dateStartR;
-                            Console.WriteLine("intervalRUle --> " + itemShift);
-                            var PayRangeRULE = r.payRate * intervalRUle.Hours;
-                            Console.WriteLine("PayRangeRULE --> " + PayRangeRULE);
-
-
-
-                        }
-                        else if (r.type == "DURATION")
-                        {
-
-                        }
-                        else {
-                            Console.WriteLine("TODO trow ERROR -> NO HAY RULE TIPO ->" + r.type);
-
+                            addHoraShiftRule++;
+                            Console.WriteLine("HA  TRABAJADO ESTE TURNO->");
                         }
 
+                        START_converToSEGUNDOS = START_converToSEGUNDOS + 3600; //INCREMENTAR UNA HORA
+                    }
 
-                    });
+
+                }
+                else if (r.type == "DURATION")
+                {
+                    Console.WriteLine("TODO trow ERROR -> NO HAY RULE DURATION ->" + r.type);
+                }
+                else {
+                    Console.WriteLine("TODO trow ERROR -> NO HAY RULE TIPO ->" + r.type);
+                }
+            });
             
             //TODO
             sal.pay = 10.89F;
@@ -234,6 +251,13 @@ namespace webapi_FreeCodeCamp.Controllers
             return listaShifts;
         }
 
+
+        // public int convierteHoraSegundos(TimeSpan Hora) {
+
+        //    return Hora.TotalSeconds * 3600;
+        //}
+
+       
         /*
          *  "shifts":[
       {

@@ -60,11 +60,11 @@ namespace webapi_FreeCodeCamp.UTILS
          */
 
         /*
-         DateTime date1 = new DateTime(2019,04,28,20,30,00);
-DateTime date2 = new DateTime(2019, 04, 29, 00, 30, 00);
+            DateTime date1 = new DateTime(2019,04,28,20,30,00);
+            DateTime date2 = new DateTime(2019, 04, 29, 00, 30, 00);
 
-DateTime dateR1 = new DateTime(date1.Year, date1.Month,date1.Day,13,00,00);
-DateTime dateR2= new DateTime(date2.Year, date2.Month, date2.Day, 08, 00, 00);
+            DateTime dateR1 = new DateTime(date1.Year, date1.Month,date1.Day,13,00,00);
+            DateTime dateR2= new DateTime(date2.Year, date2.Month, date2.Day, 08, 00, 00);
 // Calculate the interval between the two dates.
 /*
 {

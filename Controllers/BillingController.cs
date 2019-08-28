@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using webapi_FreeCodeCamp.Domain.Models;
 
 namespace webapi_FreeCodeCamp.Controllers
 {
@@ -30,9 +31,9 @@ namespace webapi_FreeCodeCamp.Controllers
 
         // POST: api/Billing
         [HttpPost]
-        public string Post([FromBody] string value)
-        {
-            return "value de posty";
+        public string Post([FromBody]  InputData value) {  
+       
+            return "value de posty - OK" ;
         }
 
         // PUT: api/Billing/5
