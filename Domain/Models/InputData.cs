@@ -7,8 +7,8 @@ namespace webapi_FreeCodeCamp.Domain.Models
 {
     public class InputData
     {
-        public List<Rule> rules { get; }
-        public List<Shift> shifts { get; }
+        public List<Rule> rules { get; set; }
+        public List<Shift> shifts { get; set; }
 
 
     }
