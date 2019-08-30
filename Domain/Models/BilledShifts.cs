@@ -8,6 +8,6 @@ namespace webapi_FreeCodeCamp.Domain.Models
     public class BilledShiftsList
     {
         public Out Out { get; set; }
-        public List<Portions> portions { get; set; }
+        public Portions portions { get; set; }
     }
 }

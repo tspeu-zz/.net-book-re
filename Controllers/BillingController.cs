@@ -268,10 +268,12 @@ namespace webapi_FreeCodeCamp.Controllers
             Salida salida = new Salida();
 
             BilledShiftsList billedShifts = new BilledShiftsList();
+            
             List<BilledShiftsList> LISTA_billedShifts = new List<BilledShiftsList>();
 
             List<Out> portionsList = new List<Out>();
-
+         
+      
             var HORAS_TRABAJO_S_RULE1 = 0;
             var HORAS_TRABAJO_S_RULE2 = 0;
             var HORAS_TRABAJO_S_RULE3 = 0;
@@ -311,6 +313,15 @@ namespace webapi_FreeCodeCamp.Controllers
                 payRate = 10.50F
             });
 
+             ListaEntradaRule.Add(new Rule()
+            {
+                id = 2,
+                type = "DURATION",
+                start = new DateTime().AddHours(1).AddMinutes(00),
+                end = new DateTime().AddHours(02).AddMinutes(00),
+                payRate = 20.23F
+            });
+
             value.rules = ListaEntradaRule;
 
             //var itemShift = ListaEntradaShifts.Find(s => r.id == s.id);
@@ -348,14 +359,29 @@ namespace webapi_FreeCodeCamp.Controllers
                         {
                             double _HORAS = itemShift.start.Hour;
                             double _MINUTOS = itemShift.start.Minute;
+                            double _HORAS_END = itemShift.end.Hour;
+                            double _MINUTOS_END = itemShift.end.Minute;
+
                             double _starShiftSECONDS = converToSeconds(_HORAS, _MINUTOS);
 
+                            TimeSpan TOTAL_TURNO = itemShift.end - itemShift.start;
 
+
+                            double _starRULE_SECONDS = converToSeconds(r.start.Hour,r.start.Minute );
+                            double _endRULE_SECONDS = converToSeconds(r.end.Hour,r.end.Minute );
+
+                            TimeSpan TOTAL_RuleSECONDS = (endRule - startRULE).Duration();
+
+                            //TODO CONVERTIR LA ENTRADA A SEGUNDOS
+                            for (double i = _starRULE_SECONDS; i < _endRULE_SECONDS; i+=3600)
+                            {
+                                HORAS_TRABAJO_S_RULE2++;
+                                PayRate_S_RULE1 = CalculatePrice(r.payRate, HORAS_TRABAJO_S_RULE2);
+
+                            }
 
 
                         }
-
-
 
                         starLoopRULE = starLoopRULE.Add(time);                  
                     }
@@ -368,15 +394,19 @@ namespace webapi_FreeCodeCamp.Controllers
                 TimeSpan interval = s.end - s.start;
 
                //Out n = new Out { id = s.id, start = s.start, end = s.end, session = interval.TotalSeconds , pay = PayRate_S_RULE1 };
-               billedShifts.Out = new Out {id = s.id, start = s.start, end = s.end, session = interval.TotalSeconds, pay = PayRate_S_RULE1 };
-
+                billedShifts.Out = new Out {id = s.id, start = s.start, end = s.end, session = interval.TotalSeconds, pay = PayRate_S_RULE1 };
+                billedShifts.portions = new Portions(portionsList);
+                //billedShifts.portions = portionsList;
+                LISTA_billedShifts.Add(billedShifts);
 
 
             });//SHIFT
              portionsList.ForEach( x => {PayRate_TOTAL = x.pay; });
+           // billedShifts.portions = new List<Portions>(portionsList);
+            //List<YourType> newList = new List<YourType>(oldList);
 
             salida.pay = PayRate_TOTAL;
-            salida.billedShifts = null;
+            salida.billedShifts = LISTA_billedShifts;
             return salida;
         }
 
