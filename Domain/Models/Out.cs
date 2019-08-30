@@ -15,9 +15,9 @@ namespace webapi_FreeCodeCamp.Domain.Models
          */
 
         public int id { get; set; }
-        public string start { get; set; }
-        public string end { get; set; }
-        public int session { get; set; }
+        public DateTime start { get; set; }
+        public DateTime end { get; set; }
+        public double session { get; set; }
         public float pay { get; set; }
     }
 }

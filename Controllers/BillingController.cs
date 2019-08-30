@@ -264,6 +264,26 @@ namespace webapi_FreeCodeCamp.Controllers
         public async Task<Salida> Algoritmo([FromBody] InputData value)
         {
             List<Shift> ListaEntradaShifts = new List<Shift>();
+            List<Rule> ListaEntradaRule = new List<Rule>();
+            Salida salida = new Salida();
+
+            BilledShiftsList billedShifts = new BilledShiftsList();
+            List<BilledShiftsList> LISTA_billedShifts = new List<BilledShiftsList>();
+
+            List<Out> portionsList = new List<Out>();
+
+            var HORAS_TRABAJO_S_RULE1 = 0;
+            var HORAS_TRABAJO_S_RULE2 = 0;
+            var HORAS_TRABAJO_S_RULE3 = 0;
+            var TOTAL_HORAS_TRABAJO_SHIFT = 0;
+
+            float PayRate_S_RULE1 = 0;
+            float PayRate_S_RULE2 = 0;
+            float PayRate_S_RULE3 = 0;
+
+            float PayRate_TOTAL = 0;
+
+
 
             ListaEntradaShifts.Add(new Shift()
             {
@@ -281,8 +301,6 @@ namespace webapi_FreeCodeCamp.Controllers
 
             value.shifts = ListaEntradaShifts;
 
-            //
-            List<Rule> ListaEntradaRule = new List<Rule>();
 
             ListaEntradaRule.Add(new Rule()
             {
@@ -292,96 +310,95 @@ namespace webapi_FreeCodeCamp.Controllers
                 end = new DateTime().AddHours(08).AddMinutes(00),
                 payRate = 10.50F
             });
-            value.rules = ListaEntradaRule;
 
+            value.rules = ListaEntradaRule;
 
             //var itemShift = ListaEntradaShifts.Find(s => r.id == s.id);
             ListaEntradaShifts.ForEach(s => {
 
-            TimeSpan dayShit = (s.end - s.start).Duration();
-
-
-                int HORAS_TRABAJO_S_RULE1 = 0;
-                int HORAS_TRABAJO_S_RULE2 = 0;
-                int HORAS_TRABAJO_S_RULE3 = 0;
-                int TOTAL_HORAS_TRABAJO_SHIFT = 0;
-
-                ListaEntradaRule.ForEach(r => {
-
+                ListaEntradaRule.ForEach(r => {     
+                    
                     var itemShift = ListaEntradaShifts.Find(it => r.id == it.id);
-
                     DateTime startRULE = new DateTime(s.start.Year, s.start.Month, s.start.Day, r.start.Hour, r.start.Minute, 00);
                     DateTime endRule = new DateTime(s.end.Year, s.end.Month, s.end.Day, r.end.Hour, r.end.Minute, 00);
+
                     TimeSpan dayRule = (endRule - startRULE).Duration();
                     TimeSpan intervalRUle = endRule - startRULE;
+
                     var PayRangeRULE_TOTAL = r.payRate * intervalRUle.Hours;
-                    Console.WriteLine("PayRangeRULE --> " + PayRangeRULE_TOTAL);
-                    //TimeSpan startRULE_HORAS = TimeSpan.FromHours(startRULE.Ticks);
-                    if (r.type == "FIXED")
+                     
+                    var starLoopRULE = itemShift.start;
+                    var endLoopRULE = itemShift.end;
+                    TimeSpan time = new TimeSpan(0, 1, 0, 0);
+
+                    while (starLoopRULE < endLoopRULE)
                     {
-                        int iStart = startRULE.Hour == 0 ? 24 : startRULE.Hour;
-                        int iEnd = endRule.Hour == 0 ? 24 : endRule.Hour;
-
-                        int startSHIFT = s.start.Hour == 0 ? 24 : s.start.Hour;
-                        int endSHIFT = s.end.Hour == 0 ? 24 : s.end.Hour;
-
-                        int startSHIFT_TOTAL = (s.start.Hour * 3600) + (s.start.Minute * 60);
-                        int endSHIFT_TOTAL = (s.end.Hour * 3600) + (s.end.Minute * 60);
-
-                        int iterarot = startSHIFT;
-                        int HORAS_RULE = 1;
-                        var endShihtCONVERT = endSHIFT == 24 ? 0 : endSHIFT;
-                  
-                        var convertEndRule = iStart > iEnd ? iEnd + 12 : iEnd;
-
-                        var starLoopRULE = startRULE;
-                        var sendLoopRULE = endRule;
-                        TimeSpan time = new TimeSpan(0, 1, 0, 0);
-
-                        while (starLoopRULE <= sendLoopRULE)
+                        if (r.type == "FIXED")
                         {
-
-                            if (startSHIFT > r.end.Hour)
+                            if (itemShift.start > startRULE)
                             {
-                                
-
-                                if (endShihtCONVERT <= iEnd)
-                                {
-
-
-
+                                if (itemShift.end <= endRule) {
                                     HORAS_TRABAJO_S_RULE1++;
-
+                                    PayRate_S_RULE1 = CalculatePrice(r.payRate, HORAS_TRABAJO_S_RULE1);
                                 }
-                            }
-
-                            starLoopRULE = starLoopRULE.Add(time);
-                          
+                             }//else {//todo calcular restantes}                  
                         }
+
+                        if (r.type == "DURATION") //convert segundos
+                        {
+                            double _HORAS = itemShift.start.Hour;
+                            double _MINUTOS = itemShift.start.Minute;
+                            double _starShiftSECONDS = converToSeconds(_HORAS, _MINUTOS);
+
+
+
+
+                        }
+
+
+
+                        starLoopRULE = starLoopRULE.Add(time);                  
                     }
+                    TimeSpan intervalo = s.end - s.start;
+                    portionsList.Add(new Out { id = r.id, start = s.start, end = s.end, session = intervalo.TotalSeconds, pay = PayRate_S_RULE1 }
+                
+                    );
+                });//RULE
 
-                    if (r.type == "DURATION")
-                    {
+                TimeSpan interval = s.end - s.start;
 
-                    }
-
-
-
-                });
-
-
-            });
+               //Out n = new Out { id = s.id, start = s.start, end = s.end, session = interval.TotalSeconds , pay = PayRate_S_RULE1 };
+               billedShifts.Out = new Out {id = s.id, start = s.start, end = s.end, session = interval.TotalSeconds, pay = PayRate_S_RULE1 };
 
 
-            Salida n = new Salida();
-            n.pay = 111112;
-            n.billedShifts = null;
-            return n;
+
+            });//SHIFT
+             portionsList.ForEach( x => {PayRate_TOTAL = x.pay; });
+
+            salida.pay = PayRate_TOTAL;
+            salida.billedShifts = null;
+            return salida;
         }
 
+        // int iStart = startRULE.Hour == 0 ? 24 : startRULE.Hour;
+        //int iEnd = endRule.Hour == 0 ? 24 : endRule.Hour;
+        //int startSHIFT = s.start.Hour == 0 ? 24 : s.start.Hour;
+        //int endSHIFT = s.end.Hour == 0 ? 24 : s.end.Hour;
+        //int startSHIFT_TOTAL = (s.start.Hour * 3600) + (s.start.Minute * 60);
+        //int endSHIFT_TOTAL = (s.end.Hour * 3600) + (s.end.Minute * 60);
+        //var endShihtCONVERT = endSHIFT == 24 ? 0 : endSHIFT;               
+        //var convertEndRule = iStart > iEnd ? iEnd + 12 : iEnd;
 
+        public float CalculatePrice(float payrate, int horas)
+        {
+            return (float)horas * payrate; 
+        }
 
-
+        public double converToSeconds(double HORAS, double MINUTOS) {
+           // double HORAS = itemShift.start.Hour;
+            //double MINUTOS = itemShift.start.Minute;
+            return  (HORAS + MINUTOS) * 3600;
+        }
 
         // PUT: api/Billing/5
         [HttpPut("{id}")]
